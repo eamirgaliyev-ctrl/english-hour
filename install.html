@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>English Hour на телефон</title>
+<style>
+  body{margin:0;font-family:"Segoe UI",system-ui,sans-serif;background:#F3F5F2;color:#18231F;display:flex;justify-content:center;padding:32px 16px}
+  .card{background:#fff;border:1px solid #DCE2DE;border-radius:16px;padding:28px;max-width:420px;text-align:center;display:flex;flex-direction:column;gap:14px;align-items:center}
+  h1{margin:0;font-size:1.5rem}
+  #qr{padding:12px;background:#fff}
+  a{color:#1F6F5C;font-weight:700;word-break:break-all}
+  ol{text-align:left;margin:0;padding-left:20px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>Наведи камеру телефона</h1>
+  <div id="qr"></div>
+  <a href="https://eamirgaliyev-ctrl.github.io/english-hour/">eamirgaliyev-ctrl.github.io/english-hour</a>
+  <ol>
+    <li>Открой камеру на телефоне и наведи её на код.</li>
+    <li>Нажми на появившуюся ссылку.</li>
+    <li>Android: ⋮ → «Установить приложение». iPhone: «Поделиться» → «На экран "Домой"».</li>
+  </ol>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+  new QRCode(document.getElementById("qr"), {text:"https://eamirgaliyev-ctrl.github.io/english-hour/", width:260, height:260, colorDark:"#18231F", colorLight:"#ffffff", correctLevel:QRCode.CorrectLevel.M});
+</script>
+</body>
+</html>
