@@ -1,0 +1,660 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>English Hour</title>
+<meta name="description" content="Ежедневный часовой урок английского для уровня Elementary: слова, Reading, Listening, Speaking.">
+<meta name="theme-color" content="#1F6F5C">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="English Hour">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one narrow column, a top bar with tabs, lesson as a step-by-step track with a highlighter accent for vocabulary */
+:root{
+  --bg:#F3F5F2; --surface:#FFFFFF; --ink:#18231F; --muted:#5E6B66; --line:#DCE2DE;
+  --accent:#1F6F5C; --accent-ink:#FFFFFF; --mark:#FFD86B; --mark-ink:#3A2E00;
+  --good:#2E8B57; --bad:#C2453D; --soft:#E6EEEA;
+  --f-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body:"Manrope", "Segoe UI", system-ui, sans-serif;
+  --r:14px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#111816; --surface:#18211E; --ink:#E6EEEA; --muted:#98A6A0; --line:#2A3531;
+  --accent:#5CC2A5; --accent-ink:#0E1A16; --mark:#6B5A1E; --mark-ink:#FFE9A8;
+  --good:#5CC28A; --bad:#E5776F; --soft:#1F2B27; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111816; --surface:#18211E; --ink:#E6EEEA; --muted:#98A6A0; --line:#2A3531;
+  --accent:#5CC2A5; --accent-ink:#0E1A16; --mark:#6B5A1E; --mark-ink:#FFE9A8;
+  --good:#5CC28A; --bad:#E5776F; --soft:#1F2B27; color-scheme:dark}
+*{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:720px;margin:0 auto;padding-block:16px 64px;display:flex;flex-direction:column;gap:18px}
+h1,h2,h3{font-family:var(--f-display);line-height:1.15;margin:0;text-wrap:balance}
+h1{font-size:1.9rem;font-weight:800}
+h2{font-size:1.45rem;font-weight:800}
+h3{font-size:1.1rem;font-weight:600}
+p{margin:0}
+.muted{color:var(--muted)}
+.small{font-size:.875rem}
+.label{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+header.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{font-family:var(--f-display);font-weight:800;font-size:1.25rem;display:flex;align-items:center;gap:8px}
+.brand i{font-style:normal;background:var(--mark);color:var(--mark-ink);padding:0 6px;border-radius:4px}
+nav.tabs{display:flex;gap:4px;background:var(--soft);padding:4px;border-radius:999px}
+nav.tabs button{border:0;background:transparent;color:var(--muted);font:600 .9rem var(--f-body);padding:6px 14px;border-radius:999px;cursor:pointer}
+nav.tabs button[aria-current="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.btn{border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 .95rem var(--f-body);padding:10px 16px;border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.big{font-size:1.05rem;padding:14px 22px}
+.btn.icon{padding:8px 10px}
+.btn:disabled{opacity:.5;cursor:default}
+.btn.rec{border-color:var(--bad);color:var(--bad)}
+button:focus-visible,input:focus-visible{outline:3px solid var(--mark);outline-offset:2px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat{background:var(--soft);border-radius:12px;padding:12px}
+.stat b{display:block;font-family:var(--f-display);font-size:1.6rem;font-variant-numeric:tabular-nums}
+.bar{height:8px;background:var(--soft);border-radius:99px;overflow:hidden}
+.bar>span{display:block;height:100%;background:var(--accent);border-radius:99px;transition:width .3s}
+.steps{display:flex;gap:4px}
+.steps span{flex:1;height:6px;border-radius:99px;background:var(--line)}
+.steps span.done{background:var(--accent)}
+.steps span.now{background:var(--mark)}
+.lessonhead{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.timer{font-variant-numeric:tabular-nums;font-weight:700;background:var(--soft);padding:4px 10px;border-radius:8px}
+.timer.over{color:var(--good)}
+.word{font-family:var(--f-display);font-size:2rem;font-weight:800}
+.tr{color:var(--muted);font-family:ui-monospace,Consolas,monospace;font-size:.95rem}
+.wcard{border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.wcard .en{font-family:var(--f-display);font-weight:800;font-size:1.25rem}
+.ex{font-style:italic;color:var(--muted)}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.opt{text-align:left;justify-content:flex-start}
+.opt.right{background:color-mix(in srgb,var(--good) 18%,var(--surface));border-color:var(--good)}
+.opt.wrong{background:color-mix(in srgb,var(--bad) 15%,var(--surface));border-color:var(--bad)}
+.text{font-size:1.08rem;line-height:1.85;max-width:65ch}
+.text .w{cursor:pointer;border-radius:3px}
+.text .w:hover{background:var(--soft)}
+.text .w.new{background:var(--mark);color:var(--mark-ink);padding:0 2px}
+.gloss{position:sticky;bottom:12px;background:var(--ink);color:var(--bg);padding:10px 14px;border-radius:10px;display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.gloss b{font-family:var(--f-display)}
+.q{display:flex;flex-direction:column;gap:8px;padding-top:12px;border-top:1px solid var(--line)}
+input[type=text]{width:100%;font:500 1rem var(--f-body);padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+.ok{color:var(--good);font-weight:700}
+.no{color:var(--bad);font-weight:700}
+.target .hit{color:var(--good);font-weight:700}
+.target .miss{color:var(--bad);text-decoration:underline wavy;text-underline-offset:4px}
+.heard{background:var(--soft);border-radius:8px;padding:8px 10px;min-height:2.4em}
+.heard .partial{color:var(--muted)}
+.dialog{display:flex;flex-direction:column;gap:6px}
+.dialog .line{padding:8px 12px;border-radius:10px;background:var(--soft);max-width:85%}
+.dialog .line.b{align-self:flex-end;background:color-mix(in srgb,var(--accent) 16%,var(--surface))}
+.dialog.hide .line{filter:blur(5px);user-select:none}
+.foot{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;max-width:340px}
+.cal span{aspect-ratio:1;border-radius:6px;background:var(--soft);display:grid;place-items:center;font-size:.72rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.cal span.l1{background:color-mix(in srgb,var(--accent) 35%,var(--soft));color:var(--ink)}
+.cal span.l2{background:color-mix(in srgb,var(--accent) 65%,var(--soft));color:var(--accent-ink)}
+.cal span.l3{background:var(--accent);color:var(--accent-ink)}
+.cal span.today{outline:2px solid var(--mark)}
+.dict{display:flex;flex-direction:column}
+.dict .item{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.lvl{font-size:.75rem;color:var(--muted)}
+.note{background:var(--soft);border-radius:10px;padding:10px 12px;font-size:.92rem}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-weight:600;max-width:90vw;z-index:20}
+@media (max-width:480px){h1{font-size:1.6rem}.word{font-size:1.7rem}.stats{grid-template-columns:repeat(3,1fr)}.stat b{font-size:1.3rem}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><i>EN</i> English Hour</div>
+    <nav class="tabs" id="tabs">
+      <button data-act="view" data-v="home">Сегодня</button>
+      <button data-act="view" data-v="dict">Словарь</button>
+      <button data-act="view" data-v="stats">Прогресс</button>
+    </nav>
+  </header>
+  <main id="app"></main>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+/* ================= CONTENT ================= */
+const DAYS = [
+{topic:"Знакомство", en:"Meeting people",
+ words:[["name","/neɪm/","имя","My name is Anna."],["meet","/miːt/","встречать, знакомиться","Nice to meet you."],["friend","/frend/","друг","Tom is my best friend."],["country","/ˈkʌntri/","страна","What country are you from?"],["live","/lɪv/","жить","I live in a big city."],["job","/dʒɒb/","работа, профессия","What is your job?"]],
+ text:"Hi! My name is Daniel. I am twenty-five years old. I am from Spain, but now I live in Dublin with my sister. My job is in a bank in the city centre. I like my work, but it is very busy. Every Saturday I meet my friend Sam in a café. Sam is from Canada. He is a teacher at a language school. We drink coffee and talk in English. Sam says my English is good, but I want to speak better. Sam wants to learn Spanish, so I help him too. It is good for both of us!",
+ gloss:{twenty:"двадцать",five:"пять",spain:"Испания",sister:"сестра",bank:"банк",centre:"центр",busy:"занятой",saturday:"суббота","café":"кафе",cafe:"кафе",canada:"Канада",teacher:"учитель",language:"язык",school:"школа",coffee:"кофе",talk:"разговаривать",english:"английский",speak:"говорить",better:"лучше",learn:"учить",spanish:"испанский",help:"помогать",both:"оба"},
+ qs:[{q:"Daniel lives with his sister.",o:["True","False"],a:0},{q:"Sam is from Spain.",o:["True","False"],a:1},{q:"When does Daniel meet Sam?",o:["On Monday","On Saturday","Every day"],a:1},{q:"What does Sam want to learn?",o:["English","Russian","Spanish"],a:2}],
+ phrases:["Nice to meet you.","Where are you from?","I live in a big city.","What is your job?"],
+ dialog:[["A","Hi, I'm Kate. What's your name?"],["B","Hi Kate, I'm Leo. Nice to meet you."],["A","Nice to meet you too. Where are you from, Leo?"],["B","I'm from Brazil, but I live in Berlin now."],["A","Really? What is your job?"],["B","I'm a chef. I work in an Italian restaurant."]],
+ dqs:[{q:"Where is Leo from?",o:["Brazil","Berlin","Italy"],a:0},{q:"What is Leo's job?",o:["Teacher","Chef","Doctor"],a:1}],
+ read:["My name is Anna and I am from London.","Nice to meet you.","I live in a small town with my family."],
+ ask:[["What is your name and where are you from?","My name is … I am from …"],["What is your job?","I am a … / I work in …"]]},
+
+{topic:"Семья", en:"Family",
+ words:[["mother","/ˈmʌðə/","мама, мать","My mother is a cook."],["father","/ˈfɑːðə/","папа, отец","My father works in a hospital."],["brother","/ˈbrʌðə/","брат","I have one brother."],["sister","/ˈsɪstə/","сестра","My sister is a student."],["children","/ˈtʃɪldrən/","дети","They have two children."],["old","/əʊld/","старый; … лет (возраст)","How old are you?"]],
+ text:"This is a photo of my family. My father's name is Peter. He is fifty-two years old, and he is a doctor. My mother, Helen, is a cook in a small café. I have one brother and one sister. My brother, Jack, is thirty. He is married and he has two children, a boy and a girl. My sister, Lucy, is nineteen. She is a student. We don't live together now, but every Sunday we have dinner at my parents' house. My mother makes a big cake, and the children play in the garden.",
+ gloss:{photo:"фото",family:"семья",doctor:"врач",cook:"повар",married:"женат / замужем",boy:"мальчик",girl:"девочка",nineteen:"девятнадцать",thirty:"тридцать",student:"студент(ка)",together:"вместе",sunday:"воскресенье",dinner:"ужин",parents:"родители",makes:"делает, готовит",cake:"торт",garden:"сад",fifty:"пятьдесят"},
+ qs:[{q:"Peter is a doctor.",o:["True","False"],a:0},{q:"Jack has three children.",o:["True","False"],a:1},{q:"When does the family have dinner together?",o:["On Saturday","On Sunday","Every day"],a:1},{q:"How old is Lucy?",o:["19","30","52"],a:0}],
+ phrases:["This is my mother.","I have two brothers.","How old is your sister?","My father is a doctor."],
+ dialog:[["A","Is this your family in the photo?"],["B","Yes. This is my mother and this is my father."],["A","And who is the little girl?"],["B","That's my sister, Mia. She is eight years old."],["A","Do you have a brother?"],["B","No, I don't. Just one sister."]],
+ dqs:[{q:"How old is Mia?",o:["Six","Eight","Eighteen"],a:1},{q:"Does the speaker have a brother?",o:["Yes","No"],a:1}],
+ read:["I have one brother and one sister.","My mother is fifty years old.","We have dinner together on Sunday."],
+ ask:[["Tell me about your family.","I have … My mother is …"],["How old is your brother or sister?","My sister is … years old."]]},
+
+{topic:"Мой день", en:"Daily routine",
+ words:[["wake","/weɪk/","просыпаться (wake up)","I wake up at seven."],["breakfast","/ˈbrekfəst/","завтрак","I have breakfast at home."],["usually","/ˈjuːʒuəli/","обычно","I usually drink tea."],["always","/ˈɔːlweɪz/","всегда","She always walks to work."],["never","/ˈnevə/","никогда","I never eat meat."],["evening","/ˈiːvnɪŋ/","вечер","In the evening I read."]],
+ text:"Maria is a nurse. She works in a big hospital. On weekdays she usually wakes up at six o'clock. She has a shower and then she has breakfast: bread, cheese and a cup of tea. She always walks to work because the hospital is near her flat. Her work starts at half past seven. In the evening she cooks dinner and watches TV. She never goes to bed late. She is usually asleep at ten. At the weekend Maria wakes up at nine and goes to the park with her dog.",
+ gloss:{nurse:"медсестра",hospital:"больница",weekdays:"будни",shower:"душ",bread:"хлеб",cheese:"сыр",cup:"чашка",tea:"чай",walks:"ходит пешком",flat:"квартира",near:"рядом",starts:"начинается",half:"половина",past:"после (о времени)",cooks:"готовит",watches:"смотрит",bed:"кровать",late:"поздно",asleep:"спит",weekend:"выходные",park:"парк",dog:"собака",six:"шесть",seven:"семь",nine:"девять",ten:"десять"},
+ qs:[{q:"Maria is a teacher.",o:["True","False"],a:1},{q:"She goes to work by bus.",o:["True","False"],a:1},{q:"What does she have for breakfast?",o:["Eggs and coffee","Bread, cheese and tea","Nothing"],a:1},{q:"What time does she wake up at the weekend?",o:["6:00","9:00","10:00"],a:1}],
+ phrases:["I wake up at seven.","I usually have tea for breakfast.","She always walks to work.","I never watch TV in the morning."],
+ dialog:[["A","What time do you usually wake up?"],["B","At half past six. I always go running before work."],["A","Wow! I never run. What do you have for breakfast?"],["B","Usually eggs and coffee. And you?"],["A","Just tea. I'm always late!"]],
+ dqs:[{q:"What time does B wake up?",o:["6:00","6:30","7:30"],a:1},{q:"What does B have for breakfast?",o:["Tea","Eggs and coffee","Bread"],a:1}],
+ read:["I usually wake up at seven o'clock.","I always have breakfast at home.","In the evening I read a book."],
+ ask:[["What time do you usually get up?","I usually get up at …"],["What do you do in the evening?","In the evening I …"]]},
+
+{topic:"Еда", en:"Food",
+ words:[["hungry","/ˈhʌŋɡri/","голодный","I am very hungry."],["vegetables","/ˈvedʒtəbəlz/","овощи","I eat a lot of vegetables."],["meat","/miːt/","мясо","She doesn't eat meat."],["delicious","/dɪˈlɪʃəs/","очень вкусный","This cake is delicious."],["buy","/baɪ/","покупать","I buy fruit at the market."],["menu","/ˈmenjuː/","меню","Can I see the menu, please?"]],
+ text:"Tom and Kate are at a restaurant. They are very hungry. The waiter gives them the menu. Kate doesn't eat meat, so she orders a salad with fresh vegetables and some soup. Tom loves meat. He orders chicken with rice. 'Would you like something to drink?' asks the waiter. Kate wants orange juice and Tom wants water. The food is delicious. After dinner they want dessert, but they are full. Tom pays the bill and they go home. Tomorrow they want to buy food at the market and cook at home.",
+ gloss:{restaurant:"ресторан",waiter:"официант",gives:"даёт",orders:"заказывает",salad:"салат",fresh:"свежий",soup:"суп",loves:"обожает",chicken:"курица",rice:"рис",would:"(вежливая форма) хотели бы",something:"что-нибудь",asks:"спрашивает",orange:"апельсиновый",juice:"сок",water:"вода",food:"еда",dessert:"десерт",full:"сытый",pays:"платит",bill:"счёт",market:"рынок",cook:"готовить"},
+ qs:[{q:"Kate eats meat.",o:["True","False"],a:1},{q:"Tom orders chicken.",o:["True","False"],a:0},{q:"What does Kate drink?",o:["Water","Orange juice","Coffee"],a:1},{q:"Why don't they have dessert?",o:["They are full","It is expensive","The café is closed"],a:0}],
+ phrases:["I am very hungry.","Can I see the menu, please?","I don't eat meat.","This soup is delicious."],
+ dialog:[["A","Good evening. Are you ready to order?"],["B","Yes. Can I have the fish with vegetables, please?"],["A","Of course. Anything to drink?"],["B","A glass of water, please."],["A","Would you like dessert?"],["B","No, thank you. Just the bill later."]],
+ dqs:[{q:"What does the guest order?",o:["Meat","Fish with vegetables","Soup"],a:1},{q:"What does the guest drink?",o:["Juice","Coffee","Water"],a:2}],
+ read:["Can I have a salad, please?","I like fresh vegetables and fruit.","The food in this restaurant is delicious."],
+ ask:[["What is your favourite food?","My favourite food is …"],["What do you usually eat for lunch?","I usually eat …"]]},
+
+{topic:"Дом", en:"Home",
+ words:[["kitchen","/ˈkɪtʃɪn/","кухня","The kitchen is small."],["bedroom","/ˈbedruːm/","спальня","My bedroom is quiet."],["small","/smɔːl/","маленький","I live in a small flat."],["big","/bɪɡ/","большой","We have a big table."],["window","/ˈwɪndəʊ/","окно","Open the window, please."],["floor","/flɔː/","этаж; пол","I live on the fifth floor."]],
+ text:"I live in a small flat on the fifth floor. There is a living room, a bedroom, a kitchen and a bathroom. The living room is not big, but it has a large window, so it is very light. There is a sofa, a TV and a bookcase. My bedroom is next to the bathroom. There are two pictures on the wall above my bed. The kitchen is my favourite room. There is a table near the window, and I eat breakfast there every morning. There isn't a garden, but there are some plants on the balcony.",
+ gloss:{flat:"квартира",fifth:"пятый",living:"living room — гостиная",room:"комната",bathroom:"ванная",large:"большой",light:"светлый",sofa:"диван",bookcase:"книжный шкаф",next:"next to — рядом с",pictures:"картины",wall:"стена",above:"над",bed:"кровать",favourite:"любимый",table:"стол",garden:"сад",plants:"растения",balcony:"балкон"},
+ qs:[{q:"The flat is on the fifth floor.",o:["True","False"],a:0},{q:"The living room has a small window.",o:["True","False"],a:1},{q:"Where does the writer eat breakfast?",o:["In the bedroom","In the kitchen","On the balcony"],a:1},{q:"Is there a garden?",o:["Yes","No"],a:1}],
+ phrases:["There is a big window in my room.","My kitchen is small.","I live on the third floor.","There are two bedrooms."],
+ dialog:[["A","So, how is your new flat?"],["B","I love it! It's on the tenth floor."],["A","Is it big?"],["B","Not really. There is one bedroom and a small kitchen."],["A","Is there a balcony?"],["B","Yes, and the view from the window is beautiful."]],
+ dqs:[{q:"Which floor is the flat on?",o:["Third","Tenth","Fifth"],a:1},{q:"How many bedrooms are there?",o:["One","Two","Three"],a:0}],
+ read:["There is a sofa in the living room.","My bedroom has a big window.","The kitchen is my favourite room."],
+ ask:[["Describe your home.","I live in a … There is / There are …"],["What is your favourite room and why?","My favourite room is … because …"]]},
+
+{topic:"Работа", en:"Work",
+ words:[["office","/ˈɒfɪs/","офис","I work in an office."],["boss","/bɒs/","начальник","My boss is kind."],["busy","/ˈbɪzi/","занятой","I am busy today."],["meeting","/ˈmiːtɪŋ/","встреча, совещание","We have a meeting at ten."],["email","/ˈiːmeɪl/","электронное письмо","I write a lot of emails."],["finish","/ˈfɪnɪʃ/","заканчивать","I finish work at six."]],
+ text:"David works in an office in London. He is a designer. He starts work at nine and finishes at half past five. Every morning he reads his emails and drinks a big cup of coffee. On Mondays there is a meeting with his boss and the team. David's boss is a kind woman, but she is very busy. Today David is working on a new website for a hotel. It is interesting, but he has a lot of work this week. At lunchtime he usually eats a sandwich in the park near the office.",
+ gloss:{designer:"дизайнер",starts:"начинает",half:"половина",past:"после (о времени)",reads:"читает",cup:"чашка",mondays:"по понедельникам",team:"команда",kind:"добрый",woman:"женщина",working:"работает (сейчас)",website:"сайт",hotel:"отель",interesting:"интересный",week:"неделя",lunchtime:"обеденное время",sandwich:"сэндвич",park:"парк"},
+ qs:[{q:"David is a designer.",o:["True","False"],a:0},{q:"His boss is a man.",o:["True","False"],a:1},{q:"When is the meeting?",o:["On Mondays","On Fridays","Every day"],a:0},{q:"What is David working on today?",o:["A hotel website","A new office","A book"],a:0}],
+ phrases:["I work in an office.","My boss is very busy.","We have a meeting at ten.","I finish work at six."],
+ dialog:[["A","Are you free at three today?"],["B","Sorry, I'm busy. I have a meeting with my boss."],["A","What about four o'clock?"],["B","Four is fine. Can you send me an email about it?"],["A","Sure. See you at four."]],
+ dqs:[{q:"Why is B busy at three?",o:["Lunch","A meeting with the boss","An email"],a:1},{q:"When do they meet?",o:["At three","At four","At five"],a:1}],
+ read:["I start work at nine o'clock.","I read my emails every morning.","My job is interesting but busy."],
+ ask:[["What is your job?","I am a … / I work in …"],["What time do you start and finish work?","I start at … and finish at …"]]},
+
+{topic:"Погода", en:"Weather",
+ words:[["weather","/ˈweðə/","погода","The weather is nice today."],["sunny","/ˈsʌni/","солнечный","It is sunny and warm."],["rain","/reɪn/","дождь; идти (о дожде)","It often rains in autumn."],["cold","/kəʊld/","холодный; простуда","It is cold in winter."],["warm","/wɔːm/","тёплый","I like warm weather."],["umbrella","/ʌmˈbrelə/","зонт","Take an umbrella."]],
+ text:"What's the weather like today? In the morning it was cold and cloudy, and it started to rain at eight. I didn't have my umbrella, so I was wet when I got to work. But now it is sunny and warm! I can see blue sky from my window. The weather forecast says it will be windy tomorrow. In my city the summer is hot, about thirty degrees, and the winter is very cold with a lot of snow. My favourite season is autumn. It isn't too hot or too cold, and the trees are yellow and red.",
+ gloss:{was:"был(о)",cloudy:"облачно",started:"начал(ся)",didn:"didn't — не (прошедшее время)",wet:"мокрый",got:"добрался",blue:"голубой",sky:"небо",forecast:"прогноз",will:"будет",windy:"ветрено",summer:"лето",hot:"жаркий",degrees:"градусов",winter:"зима",snow:"снег",season:"время года",autumn:"осень",trees:"деревья",yellow:"жёлтый",red:"красный",city:"город"},
+ qs:[{q:"It rained in the morning.",o:["True","False"],a:0},{q:"The writer had an umbrella.",o:["True","False"],a:1},{q:"What is the weather like now?",o:["Rainy and cold","Sunny and warm","Snowy"],a:1},{q:"What is the writer's favourite season?",o:["Summer","Winter","Autumn"],a:2}],
+ phrases:["It is very cold today.","Take an umbrella.","It was sunny yesterday.","I like warm weather."],
+ dialog:[["A","What's the weather like there?"],["B","Terrible! It's cold and it's raining."],["A","Oh no. Here it's sunny and warm."],["B","Lucky you! Was it sunny yesterday too?"],["A","No, yesterday it was windy."]],
+ dqs:[{q:"What's the weather like where B is?",o:["Sunny","Cold and rainy","Windy"],a:1},{q:"What was the weather like yesterday where A is?",o:["Windy","Snowy","Hot"],a:0}],
+ read:["It is warm and sunny today.","Yesterday it was cold and rainy.","My favourite season is summer."],
+ ask:[["What is the weather like today?","Today it is …"],["What is your favourite season?","My favourite season is … because …"]]},
+
+{topic:"Покупки", en:"Shopping",
+ words:[["shop","/ʃɒp/","магазин","The shop opens at nine."],["price","/praɪs/","цена","What is the price?"],["cheap","/tʃiːp/","дешёвый","This bag is cheap."],["expensive","/ɪkˈspensɪv/","дорогой","The phone is expensive."],["size","/saɪz/","размер","What size are you?"],["pay","/peɪ/","платить","Can I pay by card?"]],
+ text:"Last Saturday Anna went to the shopping centre. She wanted a new jacket for winter. In the first shop the jackets were nice, but very expensive: two hundred dollars! In the second shop she found a blue jacket. The price was only sixty dollars. It was cheap and warm. 'Can I try it on?' she asked. The shop assistant gave her a size small, but it was too small. The medium size was perfect. Anna paid by card. Then she bought a coffee and went home by bus. She was very happy with her new jacket.",
+ gloss:{last:"прошлый",went:"пошла / поехала",shopping:"шопинг, покупки",centre:"центр",wanted:"хотела",jacket:"куртка",jackets:"куртки",first:"первый",were:"были",nice:"красивый",hundred:"сто",dollars:"долларов",second:"второй",found:"нашла",only:"только",sixty:"шестьдесят",try:"try on — примерить",asked:"спросила",assistant:"продавец",gave:"дала",medium:"средний",perfect:"идеальный",paid:"заплатила",card:"карта",bought:"купила",happy:"счастливый"},
+ qs:[{q:"Anna went shopping on Saturday.",o:["True","False"],a:0},{q:"The blue jacket cost two hundred dollars.",o:["True","False"],a:1},{q:"What size was perfect?",o:["Small","Medium","Large"],a:1},{q:"How did Anna pay?",o:["By card","In cash","She didn't pay"],a:0}],
+ phrases:["How much is this?","It is too expensive.","Can I try it on?","Do you have a bigger size?"],
+ dialog:[["A","Hello, can I help you?"],["B","Yes, how much are these shoes?"],["A","They're forty-five pounds."],["B","Do you have them in size thirty-eight?"],["A","Yes, here you are."],["B","Great, I'll take them. Can I pay by card?"]],
+ dqs:[{q:"How much are the shoes?",o:["£35","£45","£55"],a:1},{q:"What size does B need?",o:["36","38","40"],a:1}],
+ read:["How much is this jacket?","Can I pay by card, please?","These shoes are cheap and nice."],
+ ask:[["What did you buy last week?","Last week I bought …"],["Do you like shopping? Why?","I like / I don't like shopping because …"]]},
+
+{topic:"Город и транспорт", en:"City and transport",
+ words:[["bus","/bʌs/","автобус","I go to work by bus."],["ticket","/ˈtɪkɪt/","билет","One ticket, please."],["station","/ˈsteɪʃən/","станция, вокзал","Where is the station?"],["street","/striːt/","улица","I live on Green Street."],["left","/left/","налево; левый","Turn left at the bank."],["right","/raɪt/","направо; правый","The shop is on the right."]],
+ text:"Ben is visiting a new city. He wants to see the old museum, but he doesn't know the way. He asks a woman in the street. 'Go straight on, then turn left at the bank,' she says. 'The museum is opposite the train station. Or you can take the number twelve bus.' Ben decides to take the bus. He buys a ticket from the driver. It costs two euros. The bus is full of people. After ten minutes Ben gets off at the station, turns right and sees the museum. It's beautiful!",
+ gloss:{visiting:"посещает",museum:"музей",know:"знать",way:"дорога, путь",asks:"спрашивает",woman:"женщина",straight:"straight on — прямо",turn:"поворачивать",turns:"поворачивает",bank:"банк",opposite:"напротив",train:"поезд",take:"сесть на (транспорт)",number:"номер",twelve:"двенадцать",decides:"решает",driver:"водитель",costs:"стоит",euros:"евро",full:"полный",people:"люди",minutes:"минут",gets:"gets off — выходит",beautiful:"красивый",sees:"видит"},
+ qs:[{q:"Ben knows the way to the museum.",o:["True","False"],a:1},{q:"The museum is opposite the train station.",o:["True","False"],a:0},{q:"Which bus does Ben take?",o:["Number 2","Number 12","Number 20"],a:1},{q:"How much is the ticket?",o:["One euro","Two euros","Ten euros"],a:1}],
+ phrases:["Where is the station?","Turn left at the bank.","One ticket, please.","Go straight on."],
+ dialog:[["A","Excuse me, where is the nearest bus stop?"],["B","Go down this street and turn right."],["A","Is it far?"],["B","No, about five minutes. Which bus do you need?"],["A","The number seven to the city centre."],["B","That stop is next to the supermarket."]],
+ dqs:[{q:"Which way should A turn?",o:["Left","Right","Straight on"],a:1},{q:"Which bus does A need?",o:["5","7","11"],a:1}],
+ read:["Excuse me, where is the train station?","Turn right and go straight on.","I go to work by bus."],
+ ask:[["How do you get to work or school?","I go by …"],["Is there a park near your home?","Yes, there is … / No, there isn't …"]]},
+
+{topic:"Свободное время", en:"Free time",
+ words:[["hobby","/ˈhɒbi/","хобби","My hobby is photography."],["music","/ˈmjuːzɪk/","музыка","I listen to music every day."],["play","/pleɪ/","играть","I play football on Sundays."],["film","/fɪlm/","фильм","Let's watch a film."],["often","/ˈɒfən/","часто","I often read in the evening."],["weekend","/ˌwiːkˈend/","выходные","What do you do at the weekend?"]],
+ text:"My name is Lena. In my free time I like music. I can play the guitar, but I can't sing very well! I often play with my friends on Friday evenings. I also love films. My favourite films are comedies. This weekend I'm going to visit my grandmother in the country. We are going to cook together and walk in the forest. Next month I'm going to start a new hobby: swimming. I can't swim now, so I'm going to have lessons at the sports centre.",
+ gloss:{free:"свободный",time:"время",guitar:"гитара",sing:"петь",well:"хорошо",friday:"пятница",also:"также",love:"обожаю",favourite:"любимый",comedies:"комедии",going:"going to — собираюсь",visit:"навестить",grandmother:"бабушка",country:"деревня, загород",cook:"готовить",walk:"гулять",forest:"лес",month:"месяц",start:"начать",swimming:"плавание",swim:"плавать",lessons:"уроки",sports:"спортивный",centre:"центр"},
+ qs:[{q:"Lena can sing very well.",o:["True","False"],a:1},{q:"Her favourite films are comedies.",o:["True","False"],a:0},{q:"What is she going to do this weekend?",o:["Go swimming","Visit her grandmother","Watch a film"],a:1},{q:"What new hobby is she going to start?",o:["Swimming","Dancing","Guitar"],a:0}],
+ phrases:["I can play the guitar.","I often watch films.","I'm going to visit my friend.","What do you do at the weekend?"],
+ dialog:[["A","What are you going to do this weekend?"],["B","I'm going to play football with my friends. Can you play football?"],["A","No, I can't. I'm going to watch a film."],["B","Which film?"],["A","A new comedy. It's at the cinema near my house."]],
+ dqs:[{q:"What is B going to do?",o:["Watch a film","Play football","Swim"],a:1},{q:"Can A play football?",o:["Yes","No"],a:1}],
+ read:["I can swim, but I can't sing.","I often listen to music in the evening.","This weekend I'm going to visit my parents."],
+ ask:[["What is your hobby?","My hobby is … / I like …"],["What are you going to do this weekend?","This weekend I'm going to …"]]},
+
+{topic:"Здоровье", en:"Health",
+ words:[["head","/hed/","голова","My head hurts."],["ill","/ɪl/","больной","I feel ill today."],["doctor","/ˈdɒktə/","врач","You should see a doctor."],["medicine","/ˈmedsən/","лекарство","Take this medicine."],["tired","/ˈtaɪəd/","уставший","I am tired after work."],["rest","/rest/","отдых; отдыхать","You need to rest."]],
+ text:"Yesterday Mark felt ill. He had a headache and a sore throat, and he was very tired. He didn't go to work. He called the doctor and made an appointment for ten o'clock. The doctor looked at his throat and said, 'You have a cold. It isn't serious. Take this medicine three times a day and drink a lot of hot tea. You should rest for two or three days.' Mark went to the chemist's and bought the medicine. Then he went home and slept all afternoon. Today he feels much better.",
+ gloss:{yesterday:"вчера",felt:"чувствовал",had:"имел, у него был(а)",headache:"головная боль",sore:"больной (болит)",throat:"горло",didn:"didn't — не (прошедшее время)",called:"позвонил",made:"сделал",appointment:"запись (к врачу)",looked:"посмотрел",said:"сказал",serious:"серьёзный",times:"раз",should:"следует, стоит",days:"дней",went:"пошёл",chemist:"chemist's — аптека",bought:"купил",slept:"спал",afternoon:"время после обеда",feels:"чувствует себя",much:"намного",better:"лучше"},
+ qs:[{q:"Mark went to work yesterday.",o:["True","False"],a:1},{q:"The doctor said it was serious.",o:["True","False"],a:1},{q:"How often should Mark take the medicine?",o:["Once a day","Three times a day","Every hour"],a:1},{q:"How does Mark feel today?",o:["Worse","Much better","The same"],a:1}],
+ phrases:["I have a headache.","You should see a doctor.","I feel tired.","Take this medicine twice a day."],
+ dialog:[["A","Hello, what's the problem?"],["B","I feel ill. I have a sore throat and I'm tired."],["A","Do you have a temperature?"],["B","Yes, a little."],["A","You have a cold. Drink hot tea and rest for two days."]],
+ dqs:[{q:"What is wrong with the patient?",o:["A headache","A sore throat","A broken leg"],a:1},{q:"What should the patient do?",o:["Go to work","Rest for two days","Play sport"],a:1}],
+ read:["I don't feel well today.","You should rest and drink water.","I went to the doctor yesterday."],
+ ask:[["What do you do when you are ill?","When I'm ill, I …"],["How do you feel today?","Today I feel …"]]},
+
+{topic:"Путешествия", en:"Travel",
+ words:[["holiday","/ˈhɒlədeɪ/","отпуск, каникулы","We are on holiday."],["airport","/ˈeəpɔːt/","аэропорт","The airport is far from the city."],["passport","/ˈpɑːspɔːt/","паспорт","Don't forget your passport."],["beach","/biːtʃ/","пляж","We go to the beach every day."],["suitcase","/ˈsuːtkeɪs/","чемодан","My suitcase is heavy."],["visit","/ˈvɪzɪt/","посещать","I want to visit Paris."]],
+ text:"Last summer Sara and her husband went on holiday to Turkey. They flew from London, and the plane left at six in the morning, so they arrived at the airport at four! At passport control there was a long queue. When they arrived in Turkey, it was hot and sunny. Their hotel was near the beach. Every day they swam in the sea and ate fresh fish. They also visited an old town and took a lot of photos. On the last day Sara's suitcase was too heavy because she bought many presents. Next year they are going to visit Italy.",
+ gloss:{last:"прошлый; последний",summer:"лето",husband:"муж",went:"поехали",flew:"летели",plane:"самолёт",left:"вылетел",arrived:"прибыли",control:"контроль",long:"длинный",queue:"очередь",hot:"жарко",hotel:"отель",swam:"плавали",sea:"море",ate:"ели",fresh:"свежий",fish:"рыба",visited:"посетили",town:"город",took:"сделали",photos:"фото",heavy:"тяжёлый",bought:"купила",presents:"подарки",year:"год"},
+ qs:[{q:"They went to Turkey.",o:["True","False"],a:0},{q:"Their hotel was far from the beach.",o:["True","False"],a:1},{q:"Why was Sara's suitcase heavy?",o:["She bought many presents","She took many books","It was old"],a:0},{q:"Where are they going next year?",o:["Spain","Italy","Turkey"],a:1}],
+ phrases:["Where is your passport?","My suitcase is very heavy.","We went to the beach.","I want to visit Italy."],
+ dialog:[["A","How was your holiday?"],["B","Wonderful! We went to Spain."],["A","What did you do there?"],["B","We swam in the sea and visited Barcelona."],["A","Was the weather good?"],["B","Yes, it was hot and sunny every day."]],
+ dqs:[{q:"Where did B go?",o:["Italy","Spain","Turkey"],a:1},{q:"What was the weather like?",o:["Rainy","Hot and sunny","Cold"],a:1}],
+ read:["Last summer I went to the sea.","Don't forget your passport!","Next year I'm going to visit Japan."],
+ ask:[["Where did you go on your last holiday?","Last year I went to …"],["Which country do you want to visit?","I want to visit … because …"]]}
+];
+
+const BASE = {hi:"привет",hello:"здравствуйте",oh:"о!",wow:"ух ты",really:"правда?",sorry:"извините",excuse:"excuse me — простите",i:"я",you:"ты, вы",he:"он",she:"она",it:"это, оно",we:"мы",they:"они",me:"мне, меня",him:"его, ему",them:"их, им",us:"нас",my:"мой",your:"твой, ваш",his:"его",her:"её",our:"наш",their:"их",is:"есть, является",am:"есть (я)",are:"есть (мы, вы, они)",a:"(неопр. артикль)",an:"(неопр. артикль)",the:"(опр. артикль)",and:"и",but:"но",or:"или",so:"поэтому; так",because:"потому что",in:"в",on:"на",at:"в, у (место, время)",to:"к, в; (частица инфинитива)",from:"из, от",with:"с",for:"для; на (срок)",of:"(родительный падеж)",by:"на (транспорт); картой",about:"о; около",after:"после",before:"до, перед",then:"потом",when:"когда",where:"где",what:"что, какой",how:"как",who:"кто",why:"почему",which:"который",very:"очень",not:"не",don:"don't — не",doesn:"doesn't — не",isn:"isn't — не является",can:"мочь, уметь",too:"тоже; слишком",every:"каждый",some:"немного, несколько",many:"много",lot:"a lot of — много",this:"этот",that:"тот, что",these:"эти",there:"там; there is — есть",here:"здесь",now:"сейчас",today:"сегодня",tomorrow:"завтра",new:"новый",good:"хороший",day:"день",morning:"утро",home:"дом (домой)",house:"дом",city:"город",years:"лет",one:"один",two:"два",three:"три",four:"четыре",have:"иметь",has:"имеет",go:"идти, ехать",goes:"идёт",work:"работа; работать",works:"работает",like:"нравиться; как",want:"хотеть",wants:"хочет",says:"говорит",eat:"есть (кушать)",eats:"ест",drink:"пить",drinks:"пьёт",see:"видеть",get:"получать, добираться",do:"делать",does:"делает",o:"o'clock — часов",clock:"o'clock — часов",also:"также",just:"только, просто",yes:"да",no:"нет",please:"пожалуйста",thank:"спасибо"};
+
+/* ================= STATE ================= */
+const KEY = "english-hour-v1";
+const INTERVALS = [1,3,7,14,30,60];
+const STEPS = [{id:"review",name:"Повторение",min:5},{id:"new",name:"Новые слова",min:10},{id:"reading",name:"Reading",min:15},{id:"listening",name:"Listening",min:15},{id:"speaking",name:"Speaking",min:15}];
+const ALLWORDS = {}; DAYS.forEach((d,di)=>d.words.forEach(w=>ALLWORDS[w[0]]={en:w[0],tr:w[1],ru:w[2],ex:w[3],day:di}));
+
+function fresh(){return {day:0,words:{},history:{},stats:{words:[0,0],reading:[0,0],listening:[0,0],speaking:[0,0]},updatedAt:0};}
+let S = fresh();
+try{const raw=localStorage.getItem(KEY); if(raw){S=Object.assign(fresh(),JSON.parse(raw));}}catch(e){}
+
+let db=null, dbRef=null, dbTimer=null, dbBusy=false, dbDirty=false;
+function save(){
+  S.updatedAt=Date.now();
+  try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}
+  if(dbRef){dbDirty=true; clearTimeout(dbTimer); dbTimer=setTimeout(flushDb,4000);}
+}
+async function flushDb(){
+  if(!dbRef||dbBusy||!dbDirty) return;
+  dbBusy=true; dbDirty=false;
+  try{await dbRef.set({json:JSON.stringify(S),updatedAt:S.updatedAt});}catch(e){ if(e&&e.code==="invalid_argument") dbRef=null; }
+  dbBusy=false; if(dbDirty) dbTimer=setTimeout(flushDb,4000);
+}
+
+function ymd(d){d=d||new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
+function addDays(n){const d=new Date();d.setDate(d.getDate()+n);return ymd(d);}
+const today=()=>ymd();
+function hist(){const t=today(); if(!S.history[t]) S.history[t]={sec:0,done:false}; return S.history[t];}
+function streak(){let n=0;const d=new Date(); if(!(S.history[ymd(d)]||{}).done) d.setDate(d.getDate()-1);
+  while((S.history[ymd(d)]||{}).done){n++;d.setDate(d.getDate()-1);} return n;}
+function due(){const t=today();return Object.keys(S.words).filter(w=>S.words[w].due<=t);}
+function score(k,ok){S.stats[k][1]++; if(ok) S.stats[k][0]++; save();}
+
+/* ================= AUDIO: TTS + DICTATION ================= */
+let tts=null, dict=null, micMode="self";
+const cl = window.claude && window.claude.use ? window.claude : null;
+if(cl){
+  cl.use("tts").then(t=>{tts=t;}).catch(()=>{});
+  cl.use("dictation").then(d=>{ if(d){dict=d; micMode="dict"; setupDict(); if(view==="lesson") render();} }).catch(()=>{});
+  (async()=>{try{
+    const user=await cl.use("user"); const d=await cl.use("db"); const id=user?await user.id():null;
+    if(d&&id){ db=d; dbRef=d.doc("data/users/"+id+"/progress");
+      const snap=await Promise.race([dbRef.get(),new Promise(r=>setTimeout(()=>r(null),10000))]);
+      if(snap&&snap.exists){const b=snap.data(); if(b&&b.updatedAt>S.updatedAt){try{S=Object.assign(fresh(),JSON.parse(b.json)); try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){} if(view!=="lesson") render();}catch(e){}}}
+      else if(S.updatedAt){dbDirty=true; flushDb();}
+    }}catch(e){}})();
+}
+function browserSay(text,rate,pitch){return new Promise(res=>{
+  if(!("speechSynthesis" in window)){res();return;}
+  const u=new SpeechSynthesisUtterance(text); u.lang="en-US"; u.rate=rate||1; u.pitch=pitch||1;
+  const v=speechSynthesis.getVoices().find(v=>/^en(-|_)(US|GB)/i.test(v.lang)); if(v) u.voice=v;
+  u.onend=res; u.onerror=res; speechSynthesis.speak(u);});}
+async function say(text,rate){
+  rate=rate||1;
+  if(tts){try{await tts.speak(text,{rate:Math.max(.7,rate),language:"en"});return;}catch(e){ if(e&&(e.code==="not_granted")) tts=null; else if(e&&e.code!=="rate_limited"&&e.code!=="busy") return; }}
+  try{speechSynthesis.cancel();}catch(e){}
+  await browserSay(text,rate);
+}
+async function sayDialog(lines,rate){
+  rate=rate||1;
+  if(tts){try{await tts.speak(lines.map(l=>({text:l[1],voice:l[0]==="A"?"airy":"rounded",language:"en",rate:Math.max(.7,rate)})));return;}catch(e){ if(e&&e.code==="not_granted") tts=null; else return; }}
+  try{speechSynthesis.cancel();}catch(e){}
+  for(const l of lines) await browserSay(l[1],rate,l[0]==="A"?1.25:.85);
+}
+
+let dictKey=null, dictText="", dictState="idle";
+function setupDict(){
+  dict.onPartial(({text})=>{const el=document.getElementById("heard-"+dictKey); if(el) el.innerHTML=esc(dictText)+' <span class="partial">'+esc(text)+'</span>';});
+  dict.onFinal(({text})=>{dictText+=text; const el=document.getElementById("heard-"+dictKey); if(el) el.textContent=dictText.trim();});
+  dict.onState(({state,reason})=>{dictState=state;
+    document.querySelectorAll("[data-act=mic]").forEach(b=>{const on=b.dataset.k===dictKey&&state!=="idle"; b.classList.toggle("rec",on); b.textContent=on?"■ Стоп":"🎤 Говорить";});
+    if(state==="idle"&&dictKey){const k=dictKey; dictKey=null;
+      if(reason==="not_granted"||reason==="unavailable"){micMode="self"; toast("Микрофон недоступен. Включён режим самопроверки."); render(); return;}
+      finishSpeak(k,dictText.trim());}
+  });
+}
+
+/* Browser speech recognition (Chrome / Edge / Android) for the standalone site */
+const SR = window.SpeechRecognition||window.webkitSpeechRecognition;
+let rec=null;
+if(!cl && SR) micMode="web";
+function setMicUI(k){document.querySelectorAll("[data-act=mic]").forEach(b=>{const on=b.dataset.k===k; b.classList.toggle("rec",on); b.textContent=on?"■ Стоп":"🎤 Говорить";});}
+function webMic(k){
+  if(rec){try{rec.stop();}catch(e){} return;}
+  dictKey=k; dictText="";
+  const el0=document.getElementById("heard-"+k); if(el0) el0.textContent="";
+  rec=new SR(); rec.lang="en-US"; rec.interimResults=true; rec.continuous=true;
+  rec.onresult=ev=>{let fin="",part=""; for(let i=0;i<ev.results.length;i++){const r=ev.results[i]; if(r.isFinal) fin+=r[0].transcript+" "; else part+=r[0].transcript;}
+    dictText=fin; const el=document.getElementById("heard-"+dictKey); if(el) el.innerHTML=esc(fin)+' <span class="partial">'+esc(part)+'</span>';};
+  rec.onerror=ev=>{ if(ev.error==="not-allowed"||ev.error==="service-not-allowed"){micMode="self"; toast("Нет доступа к микрофону. Включён режим самопроверки.");} };
+  rec.onend=()=>{const kk=dictKey; rec=null; dictKey=null; setMicUI(null); if(micMode==="self"){render();return;} finishSpeak(kk,dictText.trim());};
+  try{rec.start(); setMicUI(k);}catch(e){rec=null; dictKey=null; toast("Не удалось включить микрофон.");}
+}
+
+/* ================= HELPERS ================= */
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const norm=s=>s.toLowerCase().replace(/[’']/g,"'").replace(/[^a-z0-9' ]+/g," ").replace(/\s+/g," ").trim();
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+let toastT; function toast(m){const t=document.getElementById("toast");t.textContent=m;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,2600);}
+function lemma(w,set){if(set[w]) return w; for(const cut of [["ies","y"],["es",""],["s",""],["ed",""],["ed","e"],["d",""],["ing",""],["ing","e"]]){ if(w.endsWith(cut[0])){const b=w.slice(0,-cut[0].length)+cut[1]; if(set[b]) return b;}} return null;}
+function lookup(word,dayData){
+  const w=word.toLowerCase().replace(/[’']s$/,"").replace(/[’'].*$/,"");
+  const dw={}; dayData.words.forEach(x=>dw[x[0]]=x);
+  let k=lemma(w,dw); if(k) return {en:k,ru:dw[k][2],isNew:true};
+  if(dayData.gloss[w]) return {en:w,ru:dayData.gloss[w]};
+  k=lemma(w,dayData.gloss); if(k) return {en:k,ru:dayData.gloss[k]};
+  k=lemma(w,ALLWORDS); if(k) return {en:k,ru:ALLWORDS[k].ru};
+  k=lemma(w,BASE)||(BASE[w]?w:null); if(k) return {en:k,ru:BASE[k]};
+  return {en:w,ru:null};
+}
+const fmt=s=>{s=Math.max(0,Math.round(s));return Math.floor(s/60)+":"+String(s%60).padStart(2,"0");};
+const pct=a=>a[1]?Math.round(a[0]/a[1]*100):0;
+
+/* ================= VIEWS ================= */
+let view="home", L=null, glossW=null;
+const app=document.getElementById("app");
+
+function render(){
+  document.querySelectorAll("#tabs button").forEach(b=>b.setAttribute("aria-current",String(b.dataset.v===view||(view==="lesson"&&b.dataset.v==="home"))));
+  app.innerHTML = view==="lesson"?renderLesson(): view==="dict"?renderDict(): view==="stats"?renderStats(): renderHome();
+}
+
+function renderHome(){
+  const h=S.history[today()]||{sec:0,done:false}; const min=Math.floor(h.sec/60);
+  const d=DAYS[S.day%DAYS.length]; const round=Math.floor(S.day/DAYS.length);
+  const learned=Object.keys(S.words).length; const dueN=due().length;
+  return `<div class="wrap" style="padding:0">
+  <section class="card">
+    <span class="label">${h.done?"Урок на сегодня пройден ✓":"Урок "+(S.day+1)}</span>
+    <h1>${h.done?"Отлично! Можно пройти ещё один урок":esc(d.topic)} ${h.done?"":`<span class="muted" style="font-weight:600">· ${esc(d.en)}</span>`}</h1>
+    ${h.done?`<p class="muted">Следующая тема: <b>${esc(d.topic)}</b> (${esc(d.en)}). Лучше возвращаться завтра: слова запоминаются, когда между повторениями есть перерыв.</p>`:
+     `<p class="muted">5 мин повторение · 10 мин новые слова · 15 мин Reading · 15 мин Listening · 15 мин Speaking</p>`}
+    ${round?`<p class="note">Круг ${round+1}: повторяем материал. Задания те же, но слова уже должны быть знакомыми.</p>`:""}
+    <div class="row"><button class="btn primary big" data-act="start">${h.done?"Следующий урок":"Начать урок"} →</button>
+    ${dueN?`<span class="muted small">Слов на повторение: ${dueN}</span>`:""}</div>
+  </section>
+  <section class="stats">
+    <div class="stat"><span class="label">Серия</span><b>🔥 ${streak()}</b><span class="small muted">дней подряд</span></div>
+    <div class="stat"><span class="label">Слова</span><b>${learned}</b><span class="small muted">в словаре</span></div>
+    <div class="stat"><span class="label">Сегодня</span><b>${min}<span class="small"> / 60</span></b><span class="small muted">минут</span></div>
+  </section>
+  <div class="bar" title="Минут сегодня"><span style="width:${Math.min(100,min/60*100)}%"></span></div>
+  <section class="card">
+    <h3>Как заниматься</h3>
+    <p class="muted small">Нажимай 🔊, чтобы услышать слово или фразу. В Speaking приложение слушает тебя через микрофон и показывает, какие слова прозвучали верно. Если микрофон недоступен, повторяй вслух и отмечай сам. Прогресс сохраняется автоматически.</p>
+  </section></div>`;
+}
+
+function startLesson(){
+  const di=S.day%DAYS.length; const d=DAYS[di];
+  const q=shuffle(due()).slice(0,15);
+  L={di,d,step:0,stepStart:Date.now(),review:{q,i:0,shown:false,ok:0},
+     nw:{phase:"cards",qi:0,order:shuffle(d.words.map(w=>w[0])),ans:null,opts:null,ok:0},
+     reading:{ans:{}},listening:{res:{},ans:{},showDialog:false},speaking:{res:{}},done:false};
+  view="lesson"; glossW=null; render(); window.scrollTo(0,0);
+}
+
+function renderLesson(){
+  const st=STEPS[L.step]; const isDone=L.step>=STEPS.length;
+  const bar=`<div class="steps">${STEPS.map((s,i)=>`<span class="${i<L.step?"done":i===L.step?"now":""}" title="${s.name}"></span>`).join("")}</div>`;
+  if(isDone) return bar+renderSummary();
+  const head=`<div class="lessonhead"><div><span class="label">Шаг ${L.step+1} из 5 · ${st.min} мин</span><h2>${st.name}</h2></div><span class="timer" id="timer">${fmt(st.min*60)}</span></div>`;
+  const body=({review:rReview,new:rNew,reading:rReading,listening:rListening,speaking:rSpeaking})[st.id]();
+  const foot=`<div class="foot"><button class="btn" data-act="quit">← Выйти</button><button class="btn primary" data-act="next">${L.step===4?"Завершить урок":"Дальше: "+STEPS[L.step+1].name} →</button></div>`;
+  return `<div class="wrap" style="padding:0">${bar}${head}${body}${foot}</div>`;
+}
+
+function rReview(){
+  const r=L.review;
+  if(!r.q.length) return `<section class="card"><h3>Сегодня повторять нечего</h3><p class="muted">Слова появятся здесь через день после изучения. Переходи к новым словам.</p></section>`;
+  if(r.i>=r.q.length) return `<section class="card"><h3>Повторение готово: ${r.ok} из ${r.q.length}</h3><p class="muted">Слова, которые ты не вспомнил, вернутся завтра.</p></section>`;
+  const w=ALLWORDS[r.q[r.i]];
+  return `<section class="card" style="align-items:center;text-align:center">
+    <span class="label">${r.i+1} / ${r.q.length}</span>
+    <div class="word">${esc(w.en)}</div><div class="tr">${esc(w.tr)}</div>
+    <button class="btn icon" data-act="say" data-t="${esc(w.en)}">🔊</button>
+    ${r.shown?`<p style="font-size:1.2rem;font-weight:700">${esc(w.ru)}</p><p class="ex">${esc(w.ex)}</p>
+      <div class="row" style="justify-content:center"><button class="btn" data-act="rev" data-ok="0">Не помню</button><button class="btn primary" data-act="rev" data-ok="1">Знаю</button></div>`
+    :`<button class="btn primary" data-act="show">Показать перевод</button>`}
+  </section>`;
+}
+
+function rNew(){
+  const n=L.nw, d=L.d;
+  if(n.phase==="cards") return `<section class="card"><p class="muted">Прослушай каждое слово, повтори вслух 2–3 раза и прочитай пример.</p>
+    <div class="grid2">${d.words.map(w=>`<div class="wcard"><div class="row" style="justify-content:space-between"><span class="en">${esc(w[0])}</span><button class="btn icon" data-act="say" data-t="${esc(w[0])}">🔊</button></div>
+    <span class="tr">${esc(w[1])}</span><b>${esc(w[2])}</b><span class="ex">${esc(w[3])} <button class="btn icon" data-act="say" data-t="${esc(w[3])}" style="padding:2px 6px">🔊</button></span></div>`).join("")}</div>
+    <div><button class="btn primary" data-act="quiz">Проверить себя →</button></div></section>`;
+  if(n.phase==="quiz"){
+    const en=n.order[n.qi]; const w=ALLWORDS[en];
+    if(!n.opts){const others=shuffle(Object.values(ALLWORDS).filter(x=>x.en!==en).map(x=>x.ru)).slice(0,3); n.opts=shuffle([w.ru,...others]);}
+    return `<section class="card"><span class="label">Тест ${n.qi+1} / ${n.order.length}</span>
+      <div class="row"><span class="word">${esc(en)}</span><button class="btn icon" data-act="say" data-t="${esc(en)}">🔊</button></div>
+      <div class="opts">${n.opts.map((o,i)=>{let c=""; if(n.ans!==null){ if(o===w.ru)c="right"; else if(i===n.ans)c="wrong";} return `<button class="btn opt ${c}" data-act="nq" data-i="${i}" ${n.ans!==null?"disabled":""}>${esc(o)}</button>`;}).join("")}</div>
+      ${n.ans!==null?`<div><button class="btn primary" data-act="nqnext">${n.qi+1<n.order.length?"Следующее слово":"Готово"} →</button></div>`:""}</section>`;
+  }
+  return `<section class="card"><h3>Новые слова: ${n.ok} из ${n.order.length} верно</h3><p class="muted">Все 6 слов добавлены в словарь. Завтра они появятся в повторении.</p>
+    <div class="row">${d.words.map(w=>`<span class="note">${esc(w[0])} · ${esc(w[2])}</span>`).join("")}</div></section>`;
+}
+
+function rQuestions(qs,store,prefix){
+  return qs.map((q,qi)=>{const a=store[qi]; return `<div class="q"><b>${qi+1}. ${esc(q.q)}</b><div class="opts">${q.o.map((o,oi)=>{let c=""; if(a!==undefined){ if(oi===q.a)c="right"; else if(oi===a)c="wrong";} return `<button class="btn opt ${c}" data-act="${prefix}" data-q="${qi}" data-i="${oi}" ${a!==undefined?"disabled":""}>${esc(o)}</button>`;}).join("")}</div></div>`;}).join("");
+}
+
+function rReading(){
+  const d=L.d;
+  const html=d.text.split(/(\s+)/).map(tok=>{ if(/^\s+$/.test(tok)) return tok;
+    const m=tok.match(/^([^A-Za-z’']*)([A-Za-zé’'\-]+)(.*)$/); if(!m) return esc(tok);
+    const info=lookup(m[2],d); return esc(m[1])+`<span class="w${info.isNew?" new":""}" data-act="gl" data-w="${esc(m[2])}">${esc(m[2])}</span>`+esc(m[3]);}).join("");
+  let g="";
+  if(glossW){const info=lookup(glossW,d); g=`<div class="gloss"><span><b>${esc(glossW)}</b> — ${info.ru?esc(info.ru):"нет в словаре урока"}</span><button class="btn icon" data-act="say" data-t="${esc(glossW)}">🔊</button></div>`;}
+  return `<section class="card"><p class="muted small">Прочитай текст. Нажми на любое слово, чтобы увидеть перевод. Новые слова выделены. Можно послушать весь текст.</p>
+    <div class="row"><button class="btn" data-act="say" data-t="${esc(d.text)}">🔊 Слушать текст</button><button class="btn" data-act="sayslow" data-t="${esc(d.text)}">🐢 Медленно</button></div>
+    <div class="text">${html}</div>${g}
+    ${rQuestions(d.qs,L.reading.ans,"rq")}</section>`;
+}
+
+function rListening(){
+  const d=L.d, ls=L.listening;
+  const dictHtml=d.phrases.map((p,i)=>{const r=ls.res[i];
+    return `<div class="q"><div class="row"><b>Фраза ${i+1}</b><button class="btn icon" data-act="say" data-t="${esc(p)}">🔊</button><button class="btn icon" data-act="sayslow" data-t="${esc(p)}">🐢</button></div>
+    <div class="row" style="flex-wrap:nowrap"><input type="text" id="dict-${i}" placeholder="Напиши, что услышал" autocomplete="off" ${r?"disabled":""} value="${r?esc(r.v):""}"><button class="btn" data-act="lcheck" data-i="${i}" ${r?"disabled":""}>Проверить</button></div>
+    ${r?(r.ok?`<span class="ok">✓ Верно</span>`:`<span><span class="no">✗</span> Правильно: <b>${esc(p)}</b></span>`):""}</div>`;}).join("");
+  const lines=d.dialog.map(l=>`<div class="line ${l[0]==="B"?"b":""}"><b>${l[0]}:</b> ${esc(l[1])}</div>`).join("");
+  return `<section class="card"><h3>1. Диктант</h3><p class="muted small">Послушай фразу и напиши её. Регистр и знаки препинания не важны.</p>${dictHtml}</section>
+  <section class="card"><h3>2. Диалог</h3><p class="muted small">Послушай диалог 2 раза, не глядя в текст. Потом ответь на вопросы.</p>
+    <div class="row"><button class="btn primary" data-act="dlg">🔊 Слушать диалог</button><button class="btn" data-act="dlgslow">🐢 Медленно</button><button class="btn" data-act="dlgshow">${ls.showDialog?"Скрыть текст":"Показать текст"}</button></div>
+    <div class="dialog ${ls.showDialog?"":"hide"}" aria-hidden="${!ls.showDialog}">${lines}</div>
+    ${rQuestions(d.dqs,ls.ans,"lq")}</section>`;
+}
+
+function rSpeaking(){
+  const d=L.d, sp=L.speaking;
+  const micNote = micMode!=="self"?`Нажми «🎤 Говорить», произнеси фразу по-английски, потом «Стоп».`:`Микрофон здесь недоступен, поэтому режим самопроверки: послушай, повтори вслух 3 раза и отметь результат.`;
+  const readT=d.read.map((t,i)=>{const k="r"+i, r=sp.res[k];
+    return `<div class="q"><div class="row"><span class="target" style="font-size:1.1rem">${r&&r.marks?r.marks:esc(t)}</span></div>
+    <div class="row"><button class="btn icon" data-act="say" data-t="${esc(t)}">🔊</button>${micBtns(k)}</div>
+    ${micMode!=="self"?`<div class="heard" id="heard-${k}">${r?esc(r.heard||"—"):""}</div>`:""}
+    ${r?`<span class="${r.ok?"ok":"no"}">${r.msg}</span>`:""}</div>`;}).join("");
+  const askT=d.ask.map((a,i)=>{const k="a"+i, r=sp.res[k];
+    return `<div class="q"><div class="row"><b style="font-size:1.1rem">${esc(a[0])}</b><button class="btn icon" data-act="say" data-t="${esc(a[0])}">🔊</button></div>
+    <span class="muted small">Подсказка: ${esc(a[1])}</span>
+    <div class="row">${micBtns(k)}</div>
+    ${micMode!=="self"?`<div class="heard" id="heard-${k}">${r?esc(r.heard||"—"):""}</div>`:""}
+    ${r?`<span class="${r.ok?"ok":"no"}">${r.msg}</span>`:""}</div>`;}).join("");
+  return `<section class="card"><p class="note">${micNote}</p><h3>1. Прочитай вслух</h3>${readT}</section>
+  <section class="card"><h3>2. Ответь на вопросы</h3><p class="muted small">Отвечай 1–3 предложениями. Ошибки не страшны, главное — говорить.</p>${askT}</section>`;
+}
+function micBtns(k){
+  if(micMode!=="self") return `<button class="btn" data-act="mic" data-k="${k}">🎤 Говорить</button>`;
+  return `<button class="btn" data-act="self" data-k="${k}" data-ok="0">Ещё трудно</button><button class="btn primary" data-act="self" data-k="${k}" data-ok="1">Получилось ✓</button>`;
+}
+function finishSpeak(k,heard){
+  const sp=L&&L.speaking; if(!sp) return;
+  if(!heard){toast("Ничего не услышал. Попробуй ещё раз, говори чуть громче."); return;}
+  if(k[0]==="r"){
+    const t=L.d.read[+k.slice(1)]; const hw=new Set(norm(heard).split(" "));
+    const parts=t.split(/(\s+)/); let hit=0,tot=0;
+    const marks=parts.map(p=>{if(/^\s+$/.test(p)) return p; const n=norm(p); if(!n) return esc(p); tot++; const ok=hw.has(n); if(ok)hit++; return `<span class="${ok?"hit":"miss"}">${esc(p)}</span>`;}).join("");
+    const ratio=tot?hit/tot:0, ok=ratio>=.7;
+    sp.res[k]={heard,marks,ok,msg:ok?`✓ Отлично: ${hit} из ${tot} слов`:`${hit} из ${tot} слов. Послушай ещё раз и повтори красные слова.`};
+    score("speaking",ok);
+  }else{
+    const n=norm(heard).split(" ").filter(Boolean).length; const ok=n>=3;
+    sp.res[k]={heard,ok,msg:ok?`✓ Молодец, ${n} слов на английском!`:`Попробуй ответить полным предложением (по подсказке).`};
+    score("speaking",ok);
+  }
+  render();
+}
+
+function renderSummary(){
+  if(!L.done){
+    L.done=true; const h=hist(); h.done=true; S.day++; save();
+  }
+  const r=L.reading.ans, l=L.listening, sp=L.speaking.res;
+  const rOk=L.d.qs.filter((q,i)=>r[i]===q.a).length;
+  const lOk=Object.values(l.res).filter(x=>x.ok).length+L.d.dqs.filter((q,i)=>l.ans[i]===q.a).length;
+  const sOk=Object.values(sp).filter(x=>x.ok).length;
+  const nres=L.nw.res||{}; const weak=L.d.words.filter(w=>nres[w[0]]===false).map(w=>w[0]);
+  return `<div class="wrap" style="padding:0"><section class="card"><span class="label">Урок завершён · серия 🔥 ${streak()}</span><h1>Well done!</h1>
+  <div class="stats">
+   <div class="stat"><span class="label">Reading</span><b>${rOk}/${L.d.qs.length}</b></div>
+   <div class="stat"><span class="label">Listening</span><b>${lOk}/${L.d.phrases.length+L.d.dqs.length}</b></div>
+   <div class="stat"><span class="label">Speaking</span><b>${sOk}/${L.d.read.length+L.d.ask.length}</b></div></div>
+  <p>Новые слова: <b>${L.d.words.map(w=>esc(w[0])).join(", ")}</b></p>
+  ${weak.length?`<p class="note">Завтра обязательно повтори: <b>${weak.map(esc).join(", ")}</b></p>`:""}
+  <p class="muted small">Совет: перед сном вслух повтори 6 новых слов и одну фразу из диалога.</p>
+  <div class="row"><button class="btn primary" data-act="view" data-v="home">На главную</button><button class="btn" data-act="view" data-v="dict">Открыть словарь</button></div>
+  </section></div>`;
+}
+
+function renderDict(){
+  const list=Object.keys(S.words).map(k=>ALLWORDS[k]).filter(Boolean).sort((a,b)=>a.en.localeCompare(b.en));
+  const lv=["новое","1 день","3 дня","неделя","2 недели","месяц","выучено"];
+  return `<section class="card"><div class="row" style="justify-content:space-between"><h2>Словарь</h2><span class="muted">${list.length} слов</span></div>
+  ${list.length?`<input type="text" id="dsearch" placeholder="Поиск: английское или русское слово" autocomplete="off">
+  <div class="dict" id="dlist">${list.map(w=>{const s=S.words[w.en]; return `<div class="item" data-s="${esc((w.en+" "+w.ru).toLowerCase())}"><div><b>${esc(w.en)}</b> <span class="tr">${esc(w.tr)}</span><br>${esc(w.ru)}<br><span class="lvl">Интервал: ${lv[Math.min(s.box,6)]} · повтор ${esc(s.due)}</span></div><button class="btn icon" data-act="say" data-t="${esc(w.en)}">🔊</button></div>`;}).join("")}</div>`
+  :`<p class="muted">Здесь появятся слова после первого урока. Каждый день добавляется 6 новых.</p><div><button class="btn primary" data-act="start">Начать первый урок</button></div>`}</section>`;
+}
+
+function renderStats(){
+  const days=[]; const d0=new Date(); d0.setDate(d0.getDate()-34);
+  for(let i=0;i<35;i++){const d=new Date(d0); d.setDate(d0.getDate()+i); const k=ymd(d); const h=S.history[k]; const m=h?Math.floor(h.sec/60):0;
+    days.push(`<span class="${m>=45||(h&&h.done)?"l3":m>=20?"l2":m>0?"l1":""} ${k===today()?"today":""}" title="${k}: ${m} мин">${d.getDate()}</span>`);}
+  const total=Object.values(S.history).reduce((a,h)=>a+h.sec,0);
+  const sk=[["Слова","words"],["Reading","reading"],["Listening","listening"],["Speaking","speaking"]];
+  return `<section class="card"><h2>Прогресс</h2>
+  <div class="stats"><div class="stat"><span class="label">Уроков</span><b>${S.day}</b></div><div class="stat"><span class="label">Часов</span><b>${(total/3600).toFixed(1)}</b></div><div class="stat"><span class="label">Серия</span><b>🔥 ${streak()}</b></div></div>
+  <h3>Точность по навыкам</h3>
+  ${sk.map(([n,k])=>`<div style="display:flex;flex-direction:column;gap:4px"><div class="row" style="justify-content:space-between"><span>${n}</span><span class="muted small">${S.stats[k][1]?pct(S.stats[k])+"% · "+S.stats[k][0]+" из "+S.stats[k][1]:"пока нет ответов"}</span></div><div class="bar"><span style="width:${pct(S.stats[k])}%"></span></div></div>`).join("")}
+  <h3>Последние 5 недель</h3><div class="cal">${days.join("")}</div>
+  <p class="muted small">Чем темнее клетка, тем больше минут в этот день.</p>
+  <div><button class="btn" data-act="reset">Сбросить прогресс</button></div>
+  <div id="resetbox" hidden class="note">Удалить весь прогресс без возможности восстановления? <button class="btn" data-act="resetyes">Да, удалить</button></div>
+  </section>`;
+}
+
+/* ================= EVENTS ================= */
+document.addEventListener("click",e=>{
+  const b=e.target.closest("[data-act]"); if(!b) return;
+  const a=b.dataset.act;
+  if(a==="mic"){ // must call start() synchronously from the click
+    if(micMode==="web"){webMic(b.dataset.k); return;}
+    if(!dict) return;
+    if(dictKey&&dictState!=="idle"){dict.stop().catch(()=>{}); return;}
+    dictKey=b.dataset.k; dictText=""; const el=document.getElementById("heard-"+dictKey); if(el) el.textContent="";
+    dict.start({language:"en"}).catch(err=>{ const c=err&&err.code;
+      if(c==="not_granted"||c==="unavailable"){micMode="self"; dictKey=null; toast("Микрофон недоступен. Включён режим самопроверки."); render();}
+      else if(c==="dismissed"){dictKey=null; toast("Разреши доступ к микрофону, чтобы проверять речь.");}
+      else if(c==="rate_limited"){dictKey=null; toast("Микрофон занят. Попробуй через несколько секунд.");}
+      else if(c!=="stopped"){dictKey=null; toast("Не удалось включить микрофон. Попробуй ещё раз.");}
+    });
+    return;
+  }
+  ({
+    view(){view=b.dataset.v; render(); window.scrollTo(0,0);},
+    start(){startLesson();},
+    quit(){if(rec) try{rec.abort();}catch(e){} if(dict&&dictState!=="idle") dict.stop().catch(()=>{}); view="home"; L=null; render();},
+    next(){ if(rec) try{rec.abort();}catch(e){} if(dict&&dictState!=="idle") dict.stop().catch(()=>{});
+      if(L.step===1&&L.nw.phase!=="done") addNewWords();
+      L.step++; L.stepStart=Date.now(); glossW=null; render(); window.scrollTo(0,0);},
+    say(){say(b.dataset.t,1);},
+    sayslow(){say(b.dataset.t,.7);},
+    show(){L.review.shown=true; render();},
+    rev(){const r=L.review, w=r.q[r.i], ok=b.dataset.ok==="1", s=S.words[w];
+      if(ok){s.box=Math.min(s.box+1,INTERVALS.length-1); r.ok++;} else s.box=0;
+      s.due=addDays(INTERVALS[s.box]); score("words",ok); r.i++; r.shown=false; render();},
+    quiz(){L.nw.phase="quiz"; render();},
+    nq(){const n=L.nw; n.ans=+b.dataset.i; const w=ALLWORDS[n.order[n.qi]]; const ok=n.opts[n.ans]===w.ru;
+      if(ok) n.ok++; n.res=n.res||{}; n.res[w.en]=ok; score("words",ok); if(!ok) say(w.en,1); render();},
+    nqnext(){const n=L.nw; n.qi++; n.ans=null; n.opts=null; if(n.qi>=n.order.length){addNewWords(); n.phase="done";} render();},
+    gl(){glossW=b.dataset.w; say(glossW,1); render();},
+    rq(){const q=+b.dataset.q, i=+b.dataset.i; L.reading.ans[q]=i; score("reading",L.d.qs[q].a===i); render();},
+    lq(){const q=+b.dataset.q, i=+b.dataset.i; L.listening.ans[q]=i; score("listening",L.d.dqs[q].a===i); render();},
+    lcheck(){const i=+b.dataset.i, v=document.getElementById("dict-"+i).value; if(!v.trim()){toast("Сначала напиши фразу");return;}
+      const ok=norm(v)===norm(L.d.phrases[i]); L.listening.res[i]={v,ok}; score("listening",ok); render();},
+    dlg(){sayDialog(L.d.dialog,1);},
+    dlgslow(){sayDialog(L.d.dialog,.75);},
+    dlgshow(){L.listening.showDialog=!L.listening.showDialog; render();},
+    self(){const k=b.dataset.k, ok=b.dataset.ok==="1"; L.speaking.res[k]={ok,msg:ok?"✓ Отмечено":"Повтори ещё пару раз вслух вслед за диктором"}; score("speaking",ok); render();},
+    reset(){document.getElementById("resetbox").hidden=false;},
+    resetyes(){S=fresh(); save(); render(); toast("Прогресс удалён");}
+  })[a]?.();
+});
+document.addEventListener("keydown",e=>{ if(e.key==="Enter"&&e.target.id&&e.target.id.startsWith("dict-")){ const btn=e.target.parentElement.querySelector("[data-act=lcheck]"); if(btn) btn.click(); }});
+document.addEventListener("input",e=>{ if(e.target.id==="dsearch"){const q=e.target.value.toLowerCase().trim(); document.querySelectorAll("#dlist .item").forEach(it=>it.hidden=q&&!it.dataset.s.includes(q));}});
+
+function addNewWords(){
+  const res=(L.nw.res)||{};
+  L.d.words.forEach(w=>{ if(!S.words[w[0]]){ S.words[w[0]]={box:0,due:addDays(1)}; }});
+  save();
+}
+
+/* timer + time tracking */
+let tick=0;
+setInterval(()=>{
+  if(view!=="lesson"||!L||document.hidden) return;
+  const t=document.getElementById("timer");
+  if(t&&L.step<STEPS.length){const left=STEPS[L.step].min*60-(Date.now()-L.stepStart)/1000;
+    t.textContent=left>0?fmt(left):"Время вышло ✓"; t.classList.toggle("over",left<=0);}
+  const h=hist(); h.sec++; tick++; if(tick%30===0) save();
+},1000);
+window.addEventListener("pagehide",()=>{try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}});
+
+render();
+if("serviceWorker" in navigator && location.protocol==="https:"){navigator.serviceWorker.register("sw.js").catch(()=>{});}
+</script>
+</body>
+</html>
